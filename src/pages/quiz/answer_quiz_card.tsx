@@ -11,14 +11,31 @@ type AnswerQuizCardProps = {
 }
 
 export default function AnswerQuizCard(props: AnswerQuizCardProps) {
+	let checkedAnswer: AnswerQuiz[] = [];
+
+
 	return (
 		<div>
 			<h1>Selectionnez</h1>
-			{props.answers.map((answer) => (
-				<p>{answer.answer}</p>
-			))}
+			<ul>
+				{props.answers.map((answer) => {
+					let checked = false;
+					const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+						checked = event.target.checked;
+						if (checked) {
+							checkedAnswer.push(answer);
+						} else {
+							checkedAnswer = checkedAnswer.filter((a) => a.id !== answer.id);
+						}
+					}
+					return (
+						<li><label >{answer.answer} <input type="checkbox" name="" id="" onChange={onChange} /></label></li>
 
-			<button onClick={() => props.submitAnswer([])}>Valider</button>
+					)
+				})}
+			</ul>
+
+			<button onClick={() => props.submitAnswer(checkedAnswer)}>Valider</button>
 		</div>
 	);
 }
