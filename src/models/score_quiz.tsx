@@ -1,5 +1,6 @@
 export type ScoreQuiz = {
 	id: number;
-	quiz: number;
+	quizId: number;
 	score: number;
+	name: string;
 };

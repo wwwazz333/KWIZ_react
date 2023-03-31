@@ -11,7 +11,7 @@ type QuizItemProps = {
 
 export default function QuizItem(props: QuizItemProps) {
 	return (
-		<NavLink to={'' + props.id} className={'quiz-item'}>
+		<NavLink to={'show/' + props.id} className={'quiz-item'}>
 				<h2>{props.name}</h2>
 				<p>{props.nbrQuestion}</p>
 		</NavLink>
