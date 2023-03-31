@@ -44,7 +44,7 @@ export default function QuizPage() {
 
 	useEffect(() => {
 		//TODO: get quiz by id
-		setQuiz({ id: 1, name: 'Quiz 1', nbrQueston: 2 });
+		setQuiz({ id: 1, name: 'Quiz 1', nbrQuestion: 2});
 	}, []);
 
 
@@ -54,17 +54,17 @@ export default function QuizPage() {
 		//TODO: get all question by quiz id
 		setQuestionQuiz([{
 			id: 1, question: 'Question 1', quizId: 1, answers: [
-				{ id: 1, question: 1, answer: "oui", isCorrect: true },
-				{ id: 2, question: 1, answer: "non", isCorrect: false },
-				{ id: 3, question: 1, answer: "heuu", isCorrect: true },
-				{ id: 4, question: 1, answer: "peut être", isCorrect: false },
+				{ id: 1, questionId: 1, answer: "oui", isCorrect: true },
+				{ id: 2, questionId: 1, answer: "non", isCorrect: false },
+				{ id: 3, questionId: 1, answer: "heuu", isCorrect: true },
+				{ id: 4, questionId: 1, answer: "peut être", isCorrect: false },
 			]
 		}, {
 			id: 2, question: 'Question 2', quizId: 1, answers: [
-				{ id: 5, question: 2, answer: "oui", isCorrect: true },
-				{ id: 6, question: 2, answer: "non", isCorrect: false },
-				{ id: 7, question: 2, answer: "heuu", isCorrect: true },
-				{ id: 8, question: 2, answer: "peut être", isCorrect: true },
+				{ id: 5, questionId: 2, answer: "oui", isCorrect: true },
+				{ id: 6, questionId: 2, answer: "non", isCorrect: false },
+				{ id: 7, questionId: 2, answer: "heuu", isCorrect: true },
+				{ id: 8, questionId: 2, answer: "peut être", isCorrect: true },
 			]
 		}]);
 	}, []);

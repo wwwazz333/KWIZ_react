@@ -8,7 +8,7 @@ export default function JouerPage() {
 
   useEffect(() => {
     //TODO: get all quiz
-    setQuiz([{ id: 1, name: 'Quiz 1', nbrQueston: 3 }, { id: 2, name: 'Quiz 2', nbrQueston: 5 }])
+    setQuiz([{ id: 1, name: 'Quiz 1', nbrQuestion: 3 }, { id: 2, name: 'Quiz 2', nbrQuestion: 5 }])
   }, []);
 
   return (
@@ -20,7 +20,7 @@ export default function JouerPage() {
 
         <div id='list-quiz'>
           {quiz.map((quiz) => (
-            <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQueston} id={quiz.id} />
+            <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQuestion} id={quiz.id} />
           ))}
         </div>
       </div>

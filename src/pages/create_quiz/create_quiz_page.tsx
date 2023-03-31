@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/navbar/navbar';
 import { AnswerQuiz } from '../../models/answer_quiz';
+import { apiUrl, fetchData, headerJson } from '../../models/api';
 import { QuestionQuiz } from '../../models/question_quiz';
 import { Quiz } from '../../models/quiz';
 import AnswerItem from './answer_item';
@@ -12,6 +13,8 @@ export default function CreateQuizPage() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, set: (value: React.SetStateAction<string>) => void) => {
     set(event.target.value);
   }
+
+  const [nameQuiz, setNameQuiz] = useState<string>("");
 
   const [title, setTitle] = useState<string>("");
 
@@ -47,7 +50,7 @@ export default function CreateQuizPage() {
         if (input && checkbox) {
           answersTemp.push({
             id: -1,//il serron générer pas la bd
-            question: -1, // il faudra mettre l'id de la question créer
+            questionId: -1, // il faudra mettre l'id de la question créer
             answer: input,
             isCorrect: checkbox
           });
@@ -63,16 +66,30 @@ export default function CreateQuizPage() {
 
 
   const createQuiz = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const quiz: Quiz = {
-      id: -1,
-      name: "test",
-      nbrQueston: questions.length
-    }
-    //TODO : create quiz in db
+    const body = {
+      quiz: {
+        id: -1,
+        name: nameQuiz,
+        nbrQuestion: questions.length
 
-    for (const question of questions) {
-      //TODO : create questions in db
+      },
+      qusetions: questions
     }
+
+    fetch(apiUrl).then(res => res.json())
+    //TODO : create quiz in db
+    fetch(`${apiUrl}/quiz/new`, {
+      method: "post",
+      headers: headerJson,
+      body: JSON.stringify(body)
+    })
+      .then((response) => {
+        alert("Quiz créé avec succès : " + response.json.toString());
+      });
+
+
+
+
   }
 
 
@@ -83,7 +100,7 @@ export default function CreateQuizPage() {
       <div id='create-page'>
         <h1>Nouveau Quiz</h1>
         <form action="">
-          <label >Thème - <input type="text" name="nameQuiz" id="nameQuiz" /></label>
+          <label >Thème - <input type="text" name="" id="" onChange={(e) => handleChange(e, setNameQuiz)} /></label>
 
           <label >Nouvelle Question <input type="text" name="newQuestion" id="newQuestion" onChange={(e) => handleChange(e, setTitle)} /></label>
 

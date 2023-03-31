@@ -1,6 +1,6 @@
 export type AnswerQuiz = {
 	id: number;
-	question: number;
+	questionId: number;
 	answer: string;
 	isCorrect: boolean;
 };
