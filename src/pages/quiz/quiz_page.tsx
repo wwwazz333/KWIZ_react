@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AnswerQuiz } from '../../models/answer_quiz';
+import { apiUrl, fetchData } from '../../models/api';
 import { QuestionQuiz } from '../../models/question_quiz';
 import { Quiz } from '../../models/quiz';
 import { ScoreQuiz } from '../../models/score_quiz';
@@ -44,7 +45,9 @@ export default function QuizPage() {
 
 	useEffect(() => {
 		//TODO: get quiz by id
-		setQuiz({ id: 1, name: 'Quiz 1', nbrQueston: 2});
+		fetchData<Quiz>(`${apiUrl}/quiz/${quizId}`).then((quiz) => {
+			setQuiz(quiz);
+		});
 	}, []);
 
 
@@ -52,21 +55,25 @@ export default function QuizPage() {
 
 	useEffect(() => {
 		//TODO: get all question by quiz id
-		setQuestionQuiz([{
-			id: 1, question: 'Question 1', quizId: 1, answers: [
-				{ id: 1, questionId: 1, answer: "oui", isCorrect: true },
-				{ id: 2, questionId: 1, answer: "non", isCorrect: false },
-				{ id: 3, questionId: 1, answer: "heuu", isCorrect: true },
-				{ id: 4, questionId: 1, answer: "peut être", isCorrect: false },
-			]
-		}, {
-			id: 2, question: 'Question 2', quizId: 1, answers: [
-				{ id: 5, questionId: 2, answer: "oui", isCorrect: true },
-				{ id: 6, questionId: 2, answer: "non", isCorrect: false },
-				{ id: 7, questionId: 2, answer: "heuu", isCorrect: true },
-				{ id: 8, questionId: 2, answer: "peut être", isCorrect: true },
-			]
-		}]);
+		fetchData<QuestionQuiz[]>(`${apiUrl}/question_quiz/for/${quizId}`).then((questions) => {
+			setQuestionQuiz(questions);
+		});
+
+		// setQuestionQuiz([{
+		// 	id: 1, question: 'Question 1', quizId: 1, answers: [
+		// 		{ id: 1, questionId: 1, answer: "oui", isCorrect: true },
+		// 		{ id: 2, questionId: 1, answer: "non", isCorrect: false },
+		// 		{ id: 3, questionId: 1, answer: "heuu", isCorrect: true },
+		// 		{ id: 4, questionId: 1, answer: "peut être", isCorrect: false },
+		// 	]
+		// }, {
+		// 	id: 2, question: 'Question 2', quizId: 1, answers: [
+		// 		{ id: 5, questionId: 2, answer: "oui", isCorrect: true },
+		// 		{ id: 6, questionId: 2, answer: "non", isCorrect: false },
+		// 		{ id: 7, questionId: 2, answer: "heuu", isCorrect: true },
+		// 		{ id: 8, questionId: 2, answer: "peut être", isCorrect: true },
+		// 	]
+		// }]);
 	}, []);
 
 	useEffect(() => {

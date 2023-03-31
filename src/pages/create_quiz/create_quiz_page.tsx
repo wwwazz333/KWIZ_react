@@ -47,15 +47,18 @@ export default function CreateQuizPage() {
         const input = answersInputs[index];
         const checkbox = answersCheckbox[index];
 
-        if (input && checkbox) {
+        if (input != "") {
           answersTemp.push({
             id: -1,//il serron générer pas la bd
             questionId: -1, // il faudra mettre l'id de la question créer
             answer: input,
-            isCorrect: checkbox
+            isCorrect: checkbox ? 1 : 0
           });
+
+
         }
       }
+      console.log(answersTemp);
       questions.push({ id: -1, question: title, quizId: -1, answers: answersTemp })
 
       setQuestions(questions);
@@ -73,10 +76,10 @@ export default function CreateQuizPage() {
         nbrQuestion: questions.length
 
       },
-      qusetions: questions
+      questions: questions
     }
 
-    fetch(apiUrl).then(res => res.json())
+
     //TODO : create quiz in db
     fetch(`${apiUrl}/quiz/new`, {
       method: "post",
@@ -84,7 +87,13 @@ export default function CreateQuizPage() {
       body: JSON.stringify(body)
     })
       .then((response) => {
+        console.log("oui");
+
         alert("Quiz créé avec succès : " + response.json.toString());
+      }).catch((error) => {
+        console.log("non");
+
+        alert("Erreur lors de la création du quiz : " + error);
       });
 
 

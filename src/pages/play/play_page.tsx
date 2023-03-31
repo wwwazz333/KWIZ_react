@@ -8,9 +8,7 @@ export default function JouerPage() {
   const [quiz, setQuiz] = useState<Quiz[]>([]);
 
   useEffect(() => {
-    //TODO: get all quiz
     fetchData<Quiz[]>(`${apiUrl}/quiz`).then((data: Quiz[]) => setQuiz(data));
-    // setQuiz([{ id: 1, name: 'Quiz 1', nbrQuestion: 3 }, { id: 2, name: 'Quiz 2', nbrQuestion: 5 }])
   }, []);
 
   return (
