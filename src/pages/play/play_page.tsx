@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/navbar/navbar';
+import { fetchData, apiUrl } from '../../models/api';
 import { Quiz } from '../../models/quiz';
 import QuizItem from './quiz_item';
 
@@ -8,7 +9,8 @@ export default function JouerPage() {
 
   useEffect(() => {
     //TODO: get all quiz
-    setQuiz([{ id: 1, name: 'Quiz 1', nbrQuestion: 3 }, { id: 2, name: 'Quiz 2', nbrQuestion: 5 }])
+    fetchData<Quiz[]>(`${apiUrl}/quiz`).then((data: Quiz[]) => setQuiz(data));
+    // setQuiz([{ id: 1, name: 'Quiz 1', nbrQuestion: 3 }, { id: 2, name: 'Quiz 2', nbrQuestion: 5 }])
   }, []);
 
   return (
@@ -20,7 +22,7 @@ export default function JouerPage() {
 
         <div id='list-quiz'>
           {quiz.map((quiz) => (
-            <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQuestion} id={quiz.id} />
+            <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQueston} id={quiz.id} />
           ))}
         </div>
       </div>

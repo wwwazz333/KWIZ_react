@@ -44,7 +44,7 @@ export default function QuizPage() {
 
 	useEffect(() => {
 		//TODO: get quiz by id
-		setQuiz({ id: 1, name: 'Quiz 1', nbrQuestion: 2});
+		setQuiz({ id: 1, name: 'Quiz 1', nbrQueston: 2});
 	}, []);
 
 
