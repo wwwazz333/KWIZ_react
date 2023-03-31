@@ -7,8 +7,8 @@ export default function NavBar() {
 		<div className={'navigation'}>
 			<h1>KWIZ</h1>
 			<nav>
-				<NavLink to={'/'}>HOME</NavLink>
-				<NavLink to={'/second'}>Second</NavLink>
+				<NavLink to={'/'}>Jouer !</NavLink>
+				<NavLink to={'/create_quiz'}>Créer un quiz</NavLink>
 			</nav>
 
 		</div>

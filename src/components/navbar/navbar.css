@@ -21,7 +21,7 @@
 	color: white;
 	text-decoration: none;
 	font-size: 1.5rem;
-	width: min-content;
+	width: fit-content;
 	padding: 8px 16px;
 	border-radius: 8px;
 }

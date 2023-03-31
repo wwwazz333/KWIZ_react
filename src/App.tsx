@@ -12,7 +12,6 @@ function App() {
     <div className="App">
 
       <BrowserRouter>
-        <NavBar />
         <Routes>
           <Route path={'/'} element={<JouerPage />} />
           <Route path={'/create_quiz'} element={<CreateQuizPage />} />

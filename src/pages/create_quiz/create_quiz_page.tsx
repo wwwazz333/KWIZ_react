@@ -1,9 +1,14 @@
 import React from 'react';
+import NavBar from '../../components/navbar/navbar';
 
 export default function CreateQuizPage() {
   return (
-    <div>
-      <h1>Second</h1>
-    </div>
+    <>
+      <NavBar />
+      <div>
+        <h1>Second</h1>
+      </div>
+    </>
+
   );
 }

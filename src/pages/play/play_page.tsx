@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import NavBar from '../../components/navbar/navbar';
 import { Quiz } from '../../models/quiz';
 import QuizItem from './quiz_item';
 
@@ -10,14 +11,19 @@ export default function JouerPage() {
   }, []);
 
   return (
-    <div>
-      <h1>Choix du Quiz</h1>
+    <>
+      <NavBar />
+      <div>
 
-      <div id='list-quiz'>
-        {quiz.map((quiz) => (
-          <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQueston} />
-        ))}
+        <h1>Choix du Quiz</h1>
+
+        <div id='list-quiz'>
+          {quiz.map((quiz) => (
+            <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQueston} id={quiz.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
+
   );
 }
