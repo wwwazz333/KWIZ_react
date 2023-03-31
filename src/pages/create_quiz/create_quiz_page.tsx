@@ -80,7 +80,6 @@ export default function CreateQuizPage() {
     }
 
 
-    //TODO : create quiz in db
     fetch(`${apiUrl}/quiz/new`, {
       method: "post",
       headers: headerJson,

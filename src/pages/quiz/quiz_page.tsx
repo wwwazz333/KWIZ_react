@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AnswerQuiz } from '../../models/answer_quiz';
-import { apiUrl, fetchData } from '../../models/api';
+import { apiUrl, fetchData, headerJson } from '../../models/api';
 import { QuestionQuiz } from '../../models/question_quiz';
 import { Quiz } from '../../models/quiz';
 import { ScoreQuiz } from '../../models/score_quiz';
 import AnswerQuizCard from './answer_quiz_card';
+import InputName from './input_name';
 import QuestionQuizCard from './question_quiz_card';
 
 
@@ -28,6 +29,8 @@ function calculeScore(answers: AnswerQuiz[]): number {
 }
 
 export default function QuizPage() {
+	const [name, setName] = useState<string>();
+
 	const [numQuestion, setNumQuestion] = useState<number>(0);
 	const [quiz, setQuiz] = useState<Quiz>();
 	const [score, setScore] = useState<ScoreQuiz>();
@@ -40,11 +43,10 @@ export default function QuizPage() {
 
 	useEffect(() => {
 		//TODO: create ScoreQuiz and set it
-		setScore({ id: 1, quizId: 1, score: 0, name: 'test' });
-	}, []);
+		setScore({ id: -1, quizId: quiz?.id ?? 0, score: score?.score ?? 0, name: name ?? "" });
+	}, [quiz, name]);
 
 	useEffect(() => {
-		//TODO: get quiz by id
 		fetchData<Quiz>(`${apiUrl}/quiz/${quizId}`).then((quiz) => {
 			setQuiz(quiz);
 		});
@@ -54,26 +56,9 @@ export default function QuizPage() {
 
 
 	useEffect(() => {
-		//TODO: get all question by quiz id
 		fetchData<QuestionQuiz[]>(`${apiUrl}/question_quiz/for/${quizId}`).then((questions) => {
 			setQuestionQuiz(questions);
 		});
-
-		// setQuestionQuiz([{
-		// 	id: 1, question: 'Question 1', quizId: 1, answers: [
-		// 		{ id: 1, questionId: 1, answer: "oui", isCorrect: true },
-		// 		{ id: 2, questionId: 1, answer: "non", isCorrect: false },
-		// 		{ id: 3, questionId: 1, answer: "heuu", isCorrect: true },
-		// 		{ id: 4, questionId: 1, answer: "peut être", isCorrect: false },
-		// 	]
-		// }, {
-		// 	id: 2, question: 'Question 2', quizId: 1, answers: [
-		// 		{ id: 5, questionId: 2, answer: "oui", isCorrect: true },
-		// 		{ id: 6, questionId: 2, answer: "non", isCorrect: false },
-		// 		{ id: 7, questionId: 2, answer: "heuu", isCorrect: true },
-		// 		{ id: 8, questionId: 2, answer: "peut être", isCorrect: true },
-		// 	]
-		// }]);
 	}, []);
 
 	useEffect(() => {
@@ -89,24 +74,48 @@ export default function QuizPage() {
 	}, [questionsQuiz]);
 
 
+	const submitScore = (): boolean => {
+		if (score) {
+			console.log("send score");
+
+			fetch(`${apiUrl}/score_quiz/new`, {
+				method: "post",
+				headers: headerJson,
+				body: JSON.stringify(score)
+			})
+				.then((response) => {
+				});
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
 
 
 	const submitAnswer = (answers: AnswerQuiz[]) => {
 		if (score) {
+			console.log("score");
+
 			score.score += calculeScore(answers);
 			setScore(score);
 			setNumQuestion(numQuestion + 1);
+		}
+		if (numQuestion === (quiz?.nbrQueston ?? 0) - 1) {
+			submitScore();
 		}
 	}
 
 	return (
 		<div>
-			{quiz == null && score && <h1>Pas de quiz</h1>}
-			{quiz != null && questionsQuiz[numQuestion] && score && <>
+			{name == null && <InputName submitAnswer={setName} />}
+			{name != null && quiz == null && score && <h1>Pas de quiz</h1>}
+			{name != null && quiz != null && questionsQuiz[numQuestion] && score && <>
 				<QuestionQuizCard quiz={quiz} question={questionsQuiz[numQuestion]} numQuestion={numQuestion} />
 				<AnswerQuizCard answers={questionsQuiz[numQuestion].answers} submitAnswer={submitAnswer} />
 			</>}
-			{quiz != null && questionsQuiz[numQuestion] == null && score &&
+			{name != null && quiz != null && questionsQuiz[numQuestion] == null && score &&
 				<>
 					<h1>{'Score : ' + score.score + "/" + scoreTotale}</h1>
 					<NavLink to={'/'}>Retour</NavLink>
