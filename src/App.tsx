@@ -5,7 +5,7 @@ import HomePage from './pages/home/home_page';
 
 import SecondPage from './pages/second/second_page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './components/navbar';
+import NavBar from './components/navbar/navbar';
 
 function App() {
   return (

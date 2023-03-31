@@ -1,0 +1,31 @@
+.navigation{
+	height: 100vh;
+	width: 20vw;
+	background-color: var(--primary-color);
+}
+
+.navigation h1{
+	color: white;
+	text-align: center;
+}
+
+.navigation nav{
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.navigation nav a{
+	color: white;
+	text-decoration: none;
+	font-size: 1.5rem;
+	width: min-content;
+	padding: 8px 16px;
+	border-radius: 8px;
+}
+
+.navigation nav a.active{
+	background-color: var(--secondary-color);
+}
