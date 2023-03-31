@@ -9,6 +9,11 @@ import AnswerQuizCard from './answer_quiz_card';
 import QuestionQuizCard from './question_quiz_card';
 
 
+/**
+ * 
+ * @param answers contien les réponse donnée par l'utilisateur
+ * @returns le score de l'utilisateur
+ */
 function calculeScore(answers: AnswerQuiz[]): number {
 	let score = 0;
 	for (const answer of answers) {
