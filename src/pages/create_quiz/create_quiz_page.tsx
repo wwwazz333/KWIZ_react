@@ -87,14 +87,7 @@ export default function CreateQuizPage() {
       body: JSON.stringify(body)
     })
       .then((response) => {
-        console.log("oui");
-
-        alert("Quiz créé avec succès : " + response.json.toString());
-      }).catch((error) => {
-        console.log("non");
-
-        alert("Erreur lors de la création du quiz : " + error);
-      });
+      })
 
 
 
