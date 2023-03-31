@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import HomePage from './pages/home/home_page';
+import JouerPage from './pages/play/play_page';
 
-import SecondPage from './pages/second/second_page';
+import CreateQuizPage from './pages/create_quiz/create_quiz_page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/navbar/navbar';
 
@@ -14,8 +14,8 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path={'/'} element={<HomePage />} />
-          <Route path={'/second'} element={<SecondPage />} />
+          <Route path={'/'} element={<JouerPage />} />
+          <Route path={'/create_quiz'} element={<CreateQuizPage />} />
         </Routes>
       </BrowserRouter>
     </div>
