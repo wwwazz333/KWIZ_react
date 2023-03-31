@@ -1,9 +1,17 @@
 import React from 'react';
+import './quiz_item.css';
 
-export default function QuizItem() {
+
+type QuizItemProps = {
+	name: string;
+	nbrQuestion: number;
+}
+
+export default function QuizItem(props : QuizItemProps) {
 	return (
-		<div >
-			<h2>Name</h2>
+		<div className='quiz-item'>
+			<h2>{props.name}</h2>
+			<p>{props.nbrQuestion}</p>
 		</div>
 	);
 }

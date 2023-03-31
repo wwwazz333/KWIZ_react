@@ -6,7 +6,7 @@ export default function JouerPage() {
   const [quiz, setQuiz] = React.useState<Quiz[]>([]);
 
   useEffect(() => {
-    setQuiz([{ id:1, name: 'Quiz 1' }, { id:2, name: 'Quiz 2'}])
+    setQuiz([{ id: 1, name: 'Quiz 1', nbrQueston: 3 }, { id: 2, name: 'Quiz 2', nbrQueston: 5 }])
   }, []);
 
   return (
@@ -15,7 +15,7 @@ export default function JouerPage() {
 
       <div id='list-quiz'>
         {quiz.map((quiz) => (
-          <QuizItem />
+          <QuizItem name={quiz.name} nbrQuestion={quiz.nbrQueston} />
         ))}
       </div>
     </div>
