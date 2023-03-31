@@ -39,7 +39,9 @@ export default function CreateQuizPage() {
 
   const answersCheckbox = [checked1, checked2, checked3, checked4];
 
-  const createAnswer = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+
+  const createAnswer = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     let answersTemp: AnswerQuiz[] = [];
     if (title != "") {
@@ -59,9 +61,11 @@ export default function CreateQuizPage() {
         }
       }
       console.log(answersTemp);
-      questions.push({ id: -1, question: title, quizId: -1, answers: answersTemp })
+      const quest = { id: -1, question: title, quizId: -1, answers: answersTemp }
 
-      setQuestions(questions);
+      setQuestions(values => [...values, quest]);
+      //@ts-ignore
+      event.target.reset();
     } else {
       alert("Vous devez donner un titre à la question");
     }
@@ -100,21 +104,29 @@ export default function CreateQuizPage() {
       <NavBar />
       <div id='create-page'>
         <h1>Nouveau Quiz</h1>
-        <form action="">
-          <label >Thème - <input type="text" name="" id="" onChange={(e) => handleChange(e, setNameQuiz)} /></label>
+        <label >Thème - <input type="text" name="" id="nameQuiz" onChange={(e) => handleChange(e, setNameQuiz)} /></label>
+        <form action="" onSubmit={createAnswer}>
 
-          <label >Nouvelle Question <input type="text" name="newQuestion" id="newQuestion" onChange={(e) => handleChange(e, setTitle)} /></label>
+
+          <label >Nouvelle Question <input type="text" name="" id="nameQuestion" onChange={(e) => handleChange(e, setTitle)} /></label>
 
           <div id='answers'>
-            <label >1- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer1)} /></label><input type="checkbox" name="" id="" onClick={handleClick1} checked={checked1} />
-            <label >2- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer2)} /></label><input type="checkbox" name="" id="" onClick={handleClick2} checked={checked2} />
-            <label >3- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer3)} /></label><input type="checkbox" name="" id="" onClick={handleClick3} checked={checked3} />
-            <label >4- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer4)} /></label><input type="checkbox" name="" id="" onClick={handleClick4} checked={checked4} />
+            <div>
+              <label >1- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer1)} /></label><input type="checkbox" name="" id="" onClick={handleClick1} checked={checked1} />
+            </div>
+            <div>
+              <label >2- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer2)} /></label><input type="checkbox" name="" id="" onClick={handleClick2} checked={checked2} />
+            </div>
+            <div>
+              <label >3- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer3)} /></label><input type="checkbox" name="" id="" onClick={handleClick3} checked={checked3} />
+            </div>
+            <div>
+              <label >4- <input type="text" name="" id="" onChange={(e) => handleChange(e, setAnswer4)} /></label><input type="checkbox" name="" id="" onClick={handleClick4} checked={checked4} />
+            </div>
           </div>
 
-          <button onClick={createAnswer}>OK</button>
+          <button type="submit">OK</button>
         </form>
-        {/* TODO : card that sumUp all the questions */}
 
         <ul>
           {questions.map((answer) => (
